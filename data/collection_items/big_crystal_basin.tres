@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://bevy4bw0gb6ey"]
+
+[ext_resource type="Texture2D" uid="uid://bskl4bvhpowij" path="res://assets/icons/big_crystal_basin.png" id="1_51x6s"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_qix6j"]
+
+[resource]
+script = ExtResource("2_qix6j")
+item_uid = "mineral_019"
+item_key = "big_crystal_basin"
+display_name = "Big Crystal Basin"
+scientific_name = "Crystallum lacus magna"
+icon = ExtResource("1_51x6s")
+category = 2
+rarity = 3
+description = "Mineral basin exhibits slow tidal motion; likely sentient, definitely patient"
+discovery_hint = "Vast mineral deposit resembling a frozen lake"
+scan_time = 4.5
+biome_affinity = Array[String](["exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

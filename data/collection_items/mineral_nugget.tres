@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://c6mfafivjj4bd"]
+
+[ext_resource type="Texture2D" uid="uid://dgabl1ncyw2q1" path="res://assets/icons/crystal_formation_icon.png" id="1_xiwxc"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_iiaum"]
+
+[resource]
+script = ExtResource("2_iiaum")
+item_uid = "mineral_015"
+item_key = "mineral_nugget"
+display_name = "Crystallized Nugget"
+scientific_name = "Clusteris crystalloides minoris"
+icon = ExtResource("1_xiwxc")
+category = 2
+rarity = 1
+description = "“Small crystal group displaying impressive team spirit.”"
+discovery_hint = "Crystalline growth, typically unstable under scanner beams."
+scan_time = 2.5
+biome_affinity = Array[String](["forest", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

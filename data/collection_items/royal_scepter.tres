@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://6l6416hjeaix"]
+
+[ext_resource type="Texture2D" uid="uid://dhneq3bp4vjie" path="res://assets/icons/scepter.png" id="1_jq4o6"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_0j6m5"]
+
+[resource]
+script = ExtResource("2_0j6m5")
+item_uid = "artifact_021"
+item_key = "royal_scepter"
+display_name = "Royal Scepter"
+scientific_name = "zx sceptrum 128k"
+icon = ExtResource("1_jq4o6")
+category = 3
+rarity = 3
+description = "That extra RAM really adds to the regal presence!  Just be glad it doesn't have rubber keys."
+discovery_hint = "High value scanning mode enabled"
+scan_time = 6.0
+biome_affinity = Array[String](["exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

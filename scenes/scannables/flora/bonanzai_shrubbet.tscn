@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cy7a258d4fdjx"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_nlw4v"]
+[ext_resource type="Resource" uid="uid://ceaq86vqjcvr2" path="res://data/collection_items/bonanzai_shrubbet.tres" id="2_nlw4v"]
+[ext_resource type="PackedScene" uid="uid://lq3m75au6hjk" path="res://assets/items/bonanzai_shrubbet/bonanzai_shrubbet.glb" id="3_eb60x"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eb2aw"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k7ww6"]
+
+[node name="BonanzaiShrubbet" instance=ExtResource("1_nlw4v")]
+collection_item_data = ExtResource("2_nlw4v")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_eb2aw")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="bonanzai_shrubbet" parent="." index="3" instance=ExtResource("3_eb60x")]
+transform = Transform3D(1.2, 0, 0, 0, 1.1680216, -0.2751832, 0, 0.2751832, 1.1680216, 0, 0.052902937, -0.056916684)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("SphereShape3D_k7ww6")

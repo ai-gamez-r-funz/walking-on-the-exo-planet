@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://o4hakw0k3a15"]
+
+[ext_resource type="Texture2D" uid="uid://diult4ruvki5r" path="res://assets/icons/mineral_sample_icon.png" id="1_mjd7j"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="1_xpl2q"]
+
+[resource]
+script = ExtResource("1_xpl2q")
+item_uid = "mineral_007"
+item_key = "test_mineral"
+display_name = "Basic Mineral"
+scientific_name = "Silica nondescriptum"
+icon = ExtResource("1_mjd7j")
+category = 2
+description = "Geologically unambitious. The rock equivalent of a blank stare."
+discovery_hint = "Geologists’ least favourite rock."
+scan_time = 1.5
+biome_affinity = Array[String](["temperate", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

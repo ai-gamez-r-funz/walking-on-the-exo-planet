@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://bfhjrr64eb638"]
+
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="1_0ofld"]
+[ext_resource type="Texture2D" uid="uid://ycgpmod36urd" path="res://assets/icons/base_plant_icon.png" id="1_enx1x"]
+
+[resource]
+script = ExtResource("1_0ofld")
+item_uid = "flora_006"
+item_key = "test_plant"
+display_name = "Basic Plant"
+scientific_name = "Flora simplex (Tress. 2284)"
+icon = ExtResource("1_enx1x")
+description = "Textbook example of “barely a plant.”"
+discovery_hint = "Photosynthetic structure of limited ambition. Likely survives on stubbornness alone."
+scan_time = 1.5
+biome_affinity = Array[String](["temperate", "forest"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

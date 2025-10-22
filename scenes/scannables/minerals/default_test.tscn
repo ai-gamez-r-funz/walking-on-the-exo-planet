@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dui13bn8uxykg"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_3uxyk"]
+[ext_resource type="Resource" uid="uid://biorpnsksye5n" path="res://data/collection_items/default_test.tres" id="2_3uxyk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gqad8"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jdvmi"]
+
+[node name="DefaultTest" instance=ExtResource("1_3uxyk")]
+collection_item_data = ExtResource("2_3uxyk")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_gqad8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("SphereShape3D_jdvmi")

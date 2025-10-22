@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://th6agt37gak5"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_32wqr"]
+[ext_resource type="Resource" uid="uid://bykuamvykj3p3" path="res://data/collection_items/happy_tree.tres" id="2_xe488"]
+[ext_resource type="PackedScene" uid="uid://cxaf65r57fva6" path="res://assets/items/happy_tree/happy_tree.glb" id="4_13ure"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rhngc"]
+radius = 4.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ylgwn"]
+
+[node name="HappyTree" instance=ExtResource("1_32wqr")]
+collection_item_data = ExtResource("2_xe488")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_rhngc")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="happy_tree" parent="." index="3" instance=ExtResource("4_13ure")]
+transform = Transform3D(2.2, 0, 0, 0, 2.2, 0, 0, 0, 2.2, 0, 0.43434024, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_ylgwn")

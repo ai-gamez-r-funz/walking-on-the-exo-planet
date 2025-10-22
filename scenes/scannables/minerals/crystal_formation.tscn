@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://byb0lup3mxuer"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_lpdoa"]
+[ext_resource type="Resource" uid="uid://cn1nvdp3r41lg" path="res://data/collection_items/crystal_formation.tres" id="2_d1n85"]
+[ext_resource type="PackedScene" uid="uid://cuvwac5ksugfx" path="res://assets/items/crystal_selection/mineral2.glb" id="4_dh8id"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_diwiu"]
+radius = 4.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1efeg"]
+size = Vector3(1.2, 1.2, 1)
+
+[node name="CrystalFormation" instance=ExtResource("1_lpdoa")]
+collection_item_data = ExtResource("2_d1n85")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_diwiu")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="mineral2" parent="." index="3" instance=ExtResource("4_dh8id")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.16657767, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15949258, 0)
+shape = SubResource("BoxShape3D_1efeg")

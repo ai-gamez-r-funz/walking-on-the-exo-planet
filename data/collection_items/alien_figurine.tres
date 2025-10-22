@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://djjwgkcsla3bi"]
+
+[ext_resource type="Texture2D" uid="uid://c0biornpq3j52" path="res://assets/icons/figurine_icon.png" id="1_byd83"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_wlvee"]
+
+[resource]
+script = ExtResource("2_wlvee")
+item_uid = "artifact_017"
+item_key = "alien_figurine"
+display_name = "Alien Figurine"
+scientific_name = "Idolum xenomorphica minoris"
+icon = ExtResource("1_byd83")
+category = 3
+rarity = 2
+description = "Hand-carved idol; surface oils suggest prolonged worship or poor shelf hygiene."
+discovery_hint = "Already has a certificate of authenicity"
+scan_time = 4.0
+biome_affinity = Array[String](["forest", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

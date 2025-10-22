@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://ceaq86vqjcvr2"]
+
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="1_aj1or"]
+[ext_resource type="Texture2D" uid="uid://cql14l5jbaq3l" path="res://assets/icons/bonanzai_shrub.png" id="1_l8ti3"]
+
+[resource]
+script = ExtResource("1_aj1or")
+item_uid = "flora_010"
+item_key = "bonanzai_shrubbet"
+display_name = "Bonanzai Shrubbet"
+scientific_name = "Frondus exuberata miniata"
+icon = ExtResource("1_l8ti3")
+rarity = 1
+description = "Cultivated by unknown hands for ornamental overconfidence. Prone to spontaneous topiary."
+discovery_hint = "Ornamental shrub bred for spiritual over-exuberance."
+scan_time = 3.0
+biome_affinity = Array[String](["temperate", "forest"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

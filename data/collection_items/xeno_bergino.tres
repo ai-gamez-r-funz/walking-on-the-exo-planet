@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://bo4kdgvjt4qul"]
+
+[ext_resource type="Texture2D" uid="uid://dk3mwlfk0oky2" path="res://assets/icons/xeno-borgino.png" id="1_xnit5"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_yk3pr"]
+
+[resource]
+script = ExtResource("2_yk3pr")
+item_uid = "flora_020"
+item_key = "xeno_bergino"
+display_name = "Xeno Bergino"
+scientific_name = "Solanacea berginoides xenomorpha"
+icon = ExtResource("1_xnit5")
+rarity = 3
+description = "Gigantic fruiting body exudes faint gamma aroma. Edibility: theoretically yes,mildly radioactive when ripe."
+discovery_hint = "Gigantic aubergine analogue "
+scan_time = 5.0
+biome_affinity = Array[String](["exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

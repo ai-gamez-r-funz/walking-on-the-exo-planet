@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://2thib2nvo6st"]
+
+[ext_resource type="Texture2D" uid="uid://dqd8nhrkoqkgd" path="res://assets/icons/monumental_quartz.png" id="1_15wjn"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_knuan"]
+
+[resource]
+script = ExtResource("2_knuan")
+item_uid = "mineral_016"
+item_key = "monumental_quartz"
+display_name = "Monumental Quartz"
+scientific_name = "Quartzium grandis monumentalis"
+icon = ExtResource("1_15wjn")
+category = 2
+rarity = 2
+description = "Cathedral-sized quartz deposit worshiped by local fauna. A geological show-off."
+discovery_hint = "Emits faint organ tones under pressure."
+scan_time = 3.5
+biome_affinity = Array[String](["forest", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

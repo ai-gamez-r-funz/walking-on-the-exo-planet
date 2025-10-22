@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://cn1nvdp3r41lg"]
+
+[ext_resource type="Texture2D" uid="uid://cd83jvc5hdbw8" path="res://assets/icons/sedimentary_minerals_icon.png" id="1_s2lnd"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_1f1a6"]
+
+[resource]
+script = ExtResource("2_1f1a6")
+item_uid = "mineral_014"
+item_key = "crystal_formation"
+display_name = "Crystal Formation"
+scientific_name = "Structura crystallo-majora"
+icon = ExtResource("1_s2lnd")
+category = 2
+rarity = 2
+description = "Large crystalline growth, typically unstable under scanner beams."
+discovery_hint = "Scanner reflection rate exceeds safety guidelines"
+scan_time = 3.5
+biome_affinity = Array[String](["forest", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

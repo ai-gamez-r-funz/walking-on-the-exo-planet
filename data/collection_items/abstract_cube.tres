@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://bty5hr3srmo31"]
+
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="1_e0ltg"]
+[ext_resource type="Texture2D" uid="uid://dro45q4cm8xmc" path="res://assets/icons/cuboid_artifact_icon.png" id="1_qdhnu"]
+
+[resource]
+script = ExtResource("1_e0ltg")
+item_uid = "artifact_012"
+item_key = "abstract_cube"
+display_name = "Abstract Cube"
+scientific_name = "Formis cubica conceptualis"
+icon = ExtResource("1_qdhnu")
+category = 3
+rarity = 1
+description = "Believed to represent higher-order geometry; actually just a cube."
+discovery_hint = "Mathematically perfect. Philosophically exhausting."
+biome_affinity = Array[String](["temperate", "forest", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

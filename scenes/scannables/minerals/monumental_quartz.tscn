@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqqcpdoktdmoa"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_kmmq5"]
+[ext_resource type="Resource" uid="uid://2thib2nvo6st" path="res://data/collection_items/monumental_quartz.tres" id="2_bthbi"]
+[ext_resource type="PackedScene" uid="uid://c600j42k7t45g" path="res://assets/items/monumental_quartz/monumental_quartz.glb" id="4_hffoq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hsuxp"]
+radius = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qw3hx"]
+size = Vector3(1, 2, 1)
+
+[node name="MonumentalQuartz" instance=ExtResource("1_kmmq5")]
+collection_item_data = ExtResource("2_bthbi")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_hsuxp")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="monumental_quartz" parent="." index="3" instance=ExtResource("4_hffoq")]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0.42400354, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_qw3hx")

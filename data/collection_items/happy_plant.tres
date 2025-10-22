@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://ddhvsn05ppxs"]
+
+[ext_resource type="Texture2D" uid="uid://dkty4oformqfx" path="res://assets/icons/plant_icon.png" id="1_6j6qr"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_emald"]
+
+[resource]
+script = ExtResource("2_emald")
+item_uid = "flora_008"
+item_key = "happy_plant"
+display_name = "Happy Plant"
+scientific_name = "Cytoflora felicifolia"
+icon = ExtResource("1_6j6qr")
+rarity = 1
+description = "This budding comedian will always brighten up your day"
+discovery_hint = "Keep scanning, keep smiling"
+biome_affinity = Array[String](["temperate", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

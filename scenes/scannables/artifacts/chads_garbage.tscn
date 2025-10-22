@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu5hndwgm4mgy"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_vmph3"]
+[ext_resource type="PackedScene" uid="uid://dmsoal8j3nodh" path="res://assets/items/chads_junk/pile1.glb" id="2_12gaw"]
+[ext_resource type="Resource" uid="uid://t8skyeiaded0" path="res://data/collection_items/chads_garbage.tres" id="2_et6ks"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_et6ks"]
+radius = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h0i71"]
+
+[node name="chads_garbage" instance=ExtResource("1_vmph3")]
+collection_item_data = ExtResource("2_et6ks")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_et6ks")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="pile1" parent="." index="3" instance=ExtResource("2_12gaw")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("SphereShape3D_h0i71")

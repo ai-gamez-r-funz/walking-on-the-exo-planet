@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://d31gc4kj4ch5e"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_mxsw7"]
+[ext_resource type="Resource" uid="uid://djjwgkcsla3bi" path="res://data/collection_items/alien_figurine.tres" id="2_6b22b"]
+[ext_resource type="PackedScene" uid="uid://dp8cxlhndu8hg" path="res://assets/items/alien_figurine/figurine.glb" id="2_uboe5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6b22b"]
+radius = 4.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lxeom"]
+radius = 0.3
+height = 1.0
+
+[node name="AlienFigurine" instance=ExtResource("1_mxsw7")]
+collection_item_data = ExtResource("2_6b22b")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_6b22b")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="figurine" parent="." index="3" instance=ExtResource("2_uboe5")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("CapsuleShape3D_lxeom")

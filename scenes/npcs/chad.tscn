@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1ndrllphg3la"]
+
+[ext_resource type="PackedScene" uid="uid://d03eqhec76jtr" path="res://assets/characters/Chad/asstronaut.blend" id="1_m02bj"]
+[ext_resource type="Script" uid="uid://uj5oodbjqc6e" path="res://scripts/npc/npc_controller.gd" id="1_wmi1f"]
+[ext_resource type="Script" uid="uid://dhan5kx6gj07j" path="res://scripts/dialogue/chad_dialogue.gd" id="2_fxtw5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0agnq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fxtw5"]
+radius = 3.0
+
+[node name="Chad" type="CharacterBody3D"]
+script = ExtResource("1_wmi1f")
+npc_name = "Chad"
+dialogue_script = ExtResource("2_fxtw5")
+
+[node name="model" parent="." instance=ExtResource("1_m02bj")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Skeleton3D" parent="model/Armature" index="0"]
+bones/0/position = Vector3(-1.488, 0.111229, -43.7599)
+bones/0/rotation = Quaternion(-0.480259, -0.515876, 0.532831, 0.468309)
+bones/1/rotation = Quaternion(-0.00362608, 0.0180986, -0.0520788, 0.998472)
+bones/2/rotation = Quaternion(-0.0173853, 0.0351259, -0.0418895, 0.998353)
+bones/3/rotation = Quaternion(-0.0161235, 0.0354942, -0.0420956, 0.998353)
+bones/4/rotation = Quaternion(0.0163492, -0.00881517, 0.156577, 0.987491)
+bones/5/rotation = Quaternion(0.00774548, -0.0213445, 0.00138146, 0.999741)
+bones/6/rotation = Quaternion(-8.94943e-10, -5.96047e-08, -1.26348e-09, 1)
+bones/7/rotation = Quaternion(0.0037975, 0.668688, -0.743518, -0.00481543)
+bones/8/position = Vector3(2.27861e-06, 8.73763, 1.91116e-07)
+bones/8/rotation = Quaternion(0.577276, -0.440969, -0.0774607, 0.682861)
+bones/9/rotation = Quaternion(0.108604, -0.00132713, 0.0583834, 0.992368)
+bones/11/rotation = Quaternion(0.733047, -0.0287224, 0.0312298, 0.678853)
+bones/12/position = Vector3(-1.55785e-06, 8.73763, -8.83824e-06)
+bones/12/rotation = Quaternion(0.120358, -0.588866, -0.596656, 0.531745)
+bones/13/rotation = Quaternion(-0.0647206, 0.00134187, 0.0347668, 0.997297)
+bones/15/rotation = Quaternion(0.0705512, -0.0402074, 0.965198, -0.248592)
+bones/16/rotation = Quaternion(-0.0183273, -0.0495906, -0.528488, 0.847293)
+bones/17/rotation = Quaternion(0.233158, -0.630005, 0.352628, 0.651448)
+bones/18/rotation = Quaternion(0.505452, -0.149516, 0.000555593, 0.849801)
+bones/20/rotation = Quaternion(-0.0463674, -0.0135397, 0.990913, -0.125534)
+bones/21/rotation = Quaternion(0.0140626, 0.0812149, -0.343521, 0.935521)
+bones/22/rotation = Quaternion(0.452706, -0.524881, 0.349547, 0.630376)
+bones/23/rotation = Quaternion(0.37133, 0.0730661, -0.0293247, 0.925157)
+
+[node name="AnimationPlayer" parent="model" index="1"]
+autoplay = "Talk1"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0agnq")
+
+[node name="InteractionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+shape = SubResource("SphereShape3D_fxtw5")
+
+[editable path="model"]

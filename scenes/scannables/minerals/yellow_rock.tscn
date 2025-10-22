@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbif0wwawu40b"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_ta4he"]
+[ext_resource type="Resource" uid="uid://bjundytn1xrxa" path="res://data/collection_items/yellow_rock.tres" id="2_2duum"]
+[ext_resource type="PackedScene" uid="uid://ce3yn81wd7nye" path="res://assets/items/better_rock/rock_sample_better.glb" id="4_lx7k0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x8r3q"]
+radius = 4.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_naefm"]
+
+[node name="YellowRock" instance=ExtResource("1_ta4he")]
+collection_item_data = ExtResource("2_2duum")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_x8r3q")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="rock_sample_better" parent="." index="3" instance=ExtResource("4_lx7k0")]
+transform = Transform3D(1.5, 0, 0, 0, 0.25840935, -1.477574, 0, 1.477574, 0.25840935, 0.013560146, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_naefm")

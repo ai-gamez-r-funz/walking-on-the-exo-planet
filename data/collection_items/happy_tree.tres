@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://bykuamvykj3p3"]
+
+[ext_resource type="Texture2D" uid="uid://d1dc6xyruxol" path="res://assets/icons/happy_tree_icon.png" id="1_wrjh1"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_146pq"]
+
+[resource]
+script = ExtResource("2_146pq")
+item_uid = "flora_013"
+item_key = "happy_tree"
+display_name = "Happy Tree"
+scientific_name = "Arbora felicifolia"
+icon = ExtResource("1_wrjh1")
+description = "Emits pheromones that induce mild optimism in nearby organisms."
+discovery_hint = "Tree emits serotonin-analogous compounds. Extended exposure may cause unwarranted optimism."
+scan_time = 4.0
+biome_affinity = Array[String](["forest"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

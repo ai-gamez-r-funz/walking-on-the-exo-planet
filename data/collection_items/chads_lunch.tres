@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://da2e0mvhu4kkh"]
+
+[ext_resource type="Texture2D" uid="uid://b1572q48wm1h" path="res://assets/icons/chads_lunch_icon.png" id="1_6lqxn"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_e03g6"]
+
+[resource]
+script = ExtResource("2_e03g6")
+item_uid = "flora_003"
+item_key = "chads_lunch"
+display_name = "Chad's Lunch"
+scientific_name = "comessatio chaddius"
+icon = ExtResource("1_6lqxn")
+description = "The unidentified mushrooms growing on this burger are not 'extra toppings'."
+discovery_hint = "This meal isn't so happy anymore"
+scan_time = 1.5
+biome_affinity = Array[String](["starter"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

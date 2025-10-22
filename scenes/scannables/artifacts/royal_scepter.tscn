@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://er5uktkuvta"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_yb1gx"]
+[ext_resource type="Resource" uid="uid://6l6416hjeaix" path="res://data/collection_items/royal_scepter.tres" id="2_gxtm5"]
+[ext_resource type="PackedScene" uid="uid://bh5d3bxksb66m" path="res://assets/items/scepter/scepter_1.glb" id="4_ea4me"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tpyor"]
+radius = 4.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gq03o"]
+height = 1.5
+radius = 0.2
+
+[node name="RoyalScepter" instance=ExtResource("1_yb1gx")]
+collection_item_data = ExtResource("2_gxtm5")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_tpyor")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="AuxScene" parent="." index="3" instance=ExtResource("4_ea4me")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.69715255, 0.7169228, 0, -0.7169228, 0.69715255, 0, -0.07125902, 0)
+shape = SubResource("CylinderShape3D_gq03o")

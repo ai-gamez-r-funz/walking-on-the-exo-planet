@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2gxa85qj1xqp"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_8776k"]
+[ext_resource type="Resource" uid="uid://dd6urgis27v5b" path="res://data/collection_items/blue_rock.tres" id="2_aceap"]
+[ext_resource type="PackedScene" uid="uid://ke2jmanto0wo" path="res://assets/items/rocks/blue_rock.glb" id="4_bv7cv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rsm04"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qyug3"]
+
+[node name="BlueRock" instance=ExtResource("1_8776k")]
+collection_item_data = ExtResource("2_aceap")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_rsm04")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="blue_rock" parent="." index="3" instance=ExtResource("4_bv7cv")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("SphereShape3D_qyug3")

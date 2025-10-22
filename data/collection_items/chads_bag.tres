@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://j17dijpbvfox"]
+
+[ext_resource type="Texture2D" uid="uid://cjdmw0a038ijo" path="res://assets/icons/bag_icon.png" id="1_lgk5l"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_pqh8c"]
+
+[resource]
+script = ExtResource("2_pqh8c")
+item_uid = "mineral_002"
+item_key = "chads_bag"
+display_name = "Chad's Bag"
+scientific_name = "sacerium saccius"
+icon = ExtResource("1_lgk5l")
+category = 2
+description = "Contains the fossilized remnants of Chad's dirty socks.  Approach with caution."
+discovery_hint = "Engaging nasal protection protocols"
+scan_time = 1.5
+biome_affinity = Array[String](["starter"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://dcloutu85kwqf"]
+
+[ext_resource type="Texture2D" uid="uid://xbcvipm4edkl" path="res://assets/icons/lollypop_tree.png" id="1_y8b2b"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_0gfou"]
+
+[resource]
+script = ExtResource("2_0gfou")
+item_uid = "flora_018"
+item_key = "lollypop_tree"
+display_name = "Lollypop Tree"
+scientific_name = "Arbora saccharifolia mirabilis"
+icon = ExtResource("1_y8b2b")
+rarity = 2
+description = "Now we know where Chad's candy went! Sap analysis reveals 78% sucrose and several unapproved flavor enhancers."
+discovery_hint = "Suspected hybrid of candy and cellulose"
+scan_time = 2.5
+biome_affinity = Array[String](["forest"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

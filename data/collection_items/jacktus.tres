@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://csjilb2y58k5"]
+
+[ext_resource type="Texture2D" uid="uid://d1lou8vm0qxt3" path="res://assets/icons/cactus_icon.png" id="1_4jvp1"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_044yg"]
+
+[resource]
+script = ExtResource("2_044yg")
+item_uid = "flora_009"
+item_key = "jacktus"
+display_name = "Jacktus"
+scientific_name = "Cactacea jactans"
+icon = ExtResource("1_4jvp1")
+rarity = 1
+description = "Defensive pods launch when approached. Contains fluid best described as ‘regret syrup.'"
+discovery_hint = "Named for its habit of throwing seedpods at scanners."
+scan_time = 2.5
+biome_affinity = Array[String](["temperate", "forest"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

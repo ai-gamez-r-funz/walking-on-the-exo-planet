@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://b38xhltsi0wh3"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_t4clc"]
+[ext_resource type="Resource" uid="uid://ddhvsn05ppxs" path="res://data/collection_items/happy_plant.tres" id="2_t4clc"]
+[ext_resource type="PackedScene" uid="uid://drdevuf8rkca8" path="res://assets/items/happy_plant/cute_plant1.glb" id="3_24mjy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k8uby"]
+radius = 4.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fg0et"]
+radius = 0.3
+height = 1.0
+
+[node name="HappyPlant" instance=ExtResource("1_t4clc")]
+collection_item_data = ExtResource("2_t4clc")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_k8uby")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="cute_plant1" parent="." index="3" instance=ExtResource("3_24mjy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("CapsuleShape3D_fg0et")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cc4aola87mf7"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_it2hv"]
+[ext_resource type="Resource" uid="uid://da2e0mvhu4kkh" path="res://data/collection_items/chads_lunch.tres" id="2_c2ffi"]
+[ext_resource type="PackedScene" uid="uid://cusx5sbvws42m" path="res://assets/items/chads_junk/bag3.glb" id="2_iingb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c2ffi"]
+radius = 4.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1i0ha"]
+size = Vector3(0.7, 1, 0.8)
+
+[node name="chads_lunch" instance=ExtResource("1_it2hv")]
+collection_item_data = ExtResource("2_c2ffi")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_c2ffi")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="bag3" parent="." index="3" instance=ExtResource("2_iingb")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_1i0ha")

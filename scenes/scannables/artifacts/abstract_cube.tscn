@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bm7gwfmgm1frx"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_5ece6"]
+[ext_resource type="Resource" uid="uid://bty5hr3srmo31" path="res://data/collection_items/abstract_cube.tres" id="2_dijq1"]
+[ext_resource type="PackedScene" uid="uid://cv8hfsxgirh5q" path="res://assets/items/basic_artifact/artifact1.glb" id="2_iu3o7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dijq1"]
+radius = 4.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_34iyx"]
+size = Vector3(0.8, 0.8, 0.8)
+
+[node name="AbstractCube" instance=ExtResource("1_5ece6")]
+collection_item_data = ExtResource("2_dijq1")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_dijq1")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="artifact1" parent="." index="3" instance=ExtResource("2_iu3o7")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_34iyx")

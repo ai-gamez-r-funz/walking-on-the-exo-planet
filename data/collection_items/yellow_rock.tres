@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://bjundytn1xrxa"]
+
+[ext_resource type="Texture2D" uid="uid://dt6yt5s0e37mk" path="res://assets/icons/rock3.png" id="1_81unk"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_1sc4k"]
+
+[resource]
+script = ExtResource("2_1sc4k")
+item_uid = "mineral_011"
+item_key = "yellow_rock"
+display_name = "Yellow Rock"
+scientific_name = "chlorosia basanites"
+icon = ExtResource("1_81unk")
+category = 2
+rarity = 1
+description = "Slightly more interesting than a gray rock, and a lot denser, requires extra scanning power."
+discovery_hint = "Increasing sensor penetration"
+scan_time = 4.0
+biome_affinity = Array[String](["temperate", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

@@ -1,0 +1,60 @@
+[gd_resource type="Environment" load_steps=5 format=3 uid="uid://dbsxo4bstyysi"]
+
+[ext_resource type="Shader" uid="uid://cqf546yufeysj" path="res://shaders/exoplanet_sky.gdshader" id="1_vgceh"]
+[ext_resource type="Texture2D" uid="uid://b10lxepoa87q8" path="res://shaders/cloud_noise.tres" id="2_xfs66"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4vdea"]
+shader = ExtResource("1_vgceh")
+shader_parameter/sky_top_color = Color(0.1, 0.2, 0.4, 1)
+shader_parameter/sky_horizon_color = Color(0.5, 0.7, 0.8, 1)
+shader_parameter/sky_bottom_color = Color(0.2, 0.3, 0.5, 1)
+shader_parameter/sky_horizon_blend = 0.1
+shader_parameter/sky_curve = 1.5
+shader_parameter/sun_color = Color(1.5, 1.2, 0.8, 1)
+shader_parameter/second_sun_color = Color(1, 0.5, 0.3, 1)
+shader_parameter/sun_size = 0.2
+shader_parameter/sun_blur = 0.5
+shader_parameter/sun_direction = Vector3(0, 0.1, -1)
+shader_parameter/second_sun_direction = Vector3(0.5, 0.05, -0.8)
+shader_parameter/second_sun_size = 0.1
+shader_parameter/cloud_noise_texture = ExtResource("2_xfs66")
+shader_parameter/cloud_coverage = 0.5
+shader_parameter/cloud_thickness = 2.0
+shader_parameter/cloud_color1 = Color(1, 1, 1, 1)
+shader_parameter/cloud_color2 = Color(0.8, 0.8, 0.9, 1)
+shader_parameter/cloud_speed = 0.003
+shader_parameter/enable_aurora = true
+shader_parameter/aurora_color1 = Color(0.1, 0.6, 0.3, 1)
+shader_parameter/aurora_color2 = Color(0.2, 0.2, 0.8, 1)
+shader_parameter/aurora_intensity = 1.0
+shader_parameter/aurora_speed = 0.5
+shader_parameter/enable_stars = true
+shader_parameter/star_intensity = 0.3
+
+[sub_resource type="Sky" id="Sky_vgfju"]
+sky_material = SubResource("ShaderMaterial_4vdea")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_vgfju")
+tonemap_mode = 2
+tonemap_exposure = 1.2
+tonemap_white = 1.1
+ssao_enabled = true
+ssao_radius = 2.8
+ssao_intensity = 1.3
+ssao_power = 2.0
+ssao_detail = 1.2
+ssao_horizon = 0.08
+ssao_sharpness = 0.97
+glow_enabled = true
+glow_intensity = 1.0
+glow_strength = 1.3
+glow_bloom = 0.2
+glow_hdr_threshold = 1.15
+fog_enabled = true
+fog_sky_affect = 0.4
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.191794, 0.121594, 0.295469, 1)
+volumetric_fog_sky_affect = 0.25

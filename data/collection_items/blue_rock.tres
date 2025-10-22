@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://dd6urgis27v5b"]
+
+[ext_resource type="Texture2D" uid="uid://cu8y4ync7l6hq" path="res://assets/icons/rock4.png" id="1_yhcd7"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="2_kh7uo"]
+
+[resource]
+script = ExtResource("2_kh7uo")
+item_uid = "mineral_005"
+item_key = "blue_rock"
+display_name = "Blue Rock"
+scientific_name = "caeruleaus saxummia"
+icon = ExtResource("1_yhcd7")
+category = 2
+description = "It's a rock.  It's blue.  What more could you want?"
+discovery_hint = "Shifting scanner colour palette"
+scan_time = 1.5
+biome_affinity = Array[String](["starter", "temperate", "exotic"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

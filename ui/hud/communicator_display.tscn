@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://b04s46xuyyosa"]
+
+[ext_resource type="Script" uid="uid://do47in0sn3ruk" path="res://scripts/ui_scripts/communicator_display.gd" id="1_mohf1"]
+
+[node name="CommunicatorDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_mohf1")
+
+[node name="CommunicatorPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -170.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Content" type="HBoxContainer" parent="CommunicatorPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Portrait" type="TextureRect" parent="CommunicatorPanel/Content"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="VBox" type="VBoxContainer" parent="CommunicatorPanel/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="SpeakerName" type="Label" parent="CommunicatorPanel/Content/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Speaker Name:"
+uppercase = true
+
+[node name="MessageText" type="Label" parent="CommunicatorPanel/Content/VBox"]
+custom_minimum_size = Vector2(120, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "This is a test message that will wrap to multiple lines if needed."
+autowrap_mode = 2

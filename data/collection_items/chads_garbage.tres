@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CollectionItemData" load_steps=3 format=3 uid="uid://t8skyeiaded0"]
+
+[ext_resource type="Texture2D" uid="uid://kne7fcu4nxpq" path="res://assets/icons/garbage_icon.png" id="1_d4doa"]
+[ext_resource type="Script" uid="uid://cxer20nt3srer" path="res://scripts/resources/collection_item_data.gd" id="1_h3kgv"]
+
+[resource]
+script = ExtResource("1_h3kgv")
+item_uid = "artifact_004"
+item_key = "chads garbage"
+display_name = "Chad's Garbage"
+scientific_name = "purgamentinim lapides sacculi "
+icon = ExtResource("1_d4doa")
+category = 3
+rarity = 1
+description = "Sadly this artifact is all too common - but at least it's bagged."
+discovery_hint = "Watch out for any holes in the bag"
+scan_time = 1.5
+biome_affinity = Array[String](["starter"])
+metadata/_custom_type_script = "uid://cxer20nt3srer"

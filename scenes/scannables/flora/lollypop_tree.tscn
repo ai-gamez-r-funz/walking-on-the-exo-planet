@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://030ssrb762gi"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_oclg0"]
+[ext_resource type="Resource" uid="uid://dcloutu85kwqf" path="res://data/collection_items/lollypop_tree.tres" id="2_2dxj5"]
+[ext_resource type="PackedScene" uid="uid://cgs6jrlfbdg2" path="res://assets/items/lollypop_tree/lollypop_tree.glb" id="4_pi3pp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t4evb"]
+radius = 3.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4o8pn"]
+
+[node name="LollypopTree" instance=ExtResource("1_oclg0")]
+collection_item_data = ExtResource("2_2dxj5")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_t4evb")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="lollypop_tree" parent="." index="3" instance=ExtResource("4_pi3pp")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 1, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_4o8pn")

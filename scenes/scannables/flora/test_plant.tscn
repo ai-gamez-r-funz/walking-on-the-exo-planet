@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://jsxyxnqudrm7"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_8cklg"]
+[ext_resource type="Resource" uid="uid://bfhjrr64eb638" path="res://data/collection_items/test_plant.tres" id="2_rkx1j"]
+[ext_resource type="PackedScene" uid="uid://dsvygbib7y0j5" path="res://assets/items/basic_plant/basic_plant.glb" id="3_c47s8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8cklg"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hkmav"]
+radius = 0.6
+
+[node name="TestPlant" instance=ExtResource("1_8cklg")]
+collection_item_data = ExtResource("2_rkx1j")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_8cklg")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="basic_plant" parent="." index="2" instance=ExtResource("3_c47s8")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.339045, 0)
+shape = SubResource("SphereShape3D_hkmav")
+
+[editable path="basic_plant"]

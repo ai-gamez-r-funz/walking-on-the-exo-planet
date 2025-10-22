@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2ky6eglgspb4"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_epm4s"]
+[ext_resource type="PackedScene" uid="uid://b0m7yh6nxwgjt" path="res://assets/items/jacktus/cute_plant2.glb" id="2_ig7l7"]
+[ext_resource type="Resource" uid="uid://csjilb2y58k5" path="res://data/collection_items/jacktus.tres" id="2_lj6vp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lj6vp"]
+radius = 4.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lj6vp"]
+radius = 0.3
+height = 1.0
+
+[node name="Jacktus" instance=ExtResource("1_epm4s")]
+collection_item_data = ExtResource("2_lj6vp")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_lj6vp")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="cute_plant2" parent="." index="3" instance=ExtResource("2_ig7l7")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+shape = SubResource("CapsuleShape3D_lj6vp")

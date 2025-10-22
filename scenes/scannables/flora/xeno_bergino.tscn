@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6uv1gyxc10n5"]
+
+[ext_resource type="PackedScene" uid="uid://c18slyj7slqa1" path="res://scenes/scannables/scannable_object.tscn" id="1_m24y3"]
+[ext_resource type="Resource" uid="uid://bo4kdgvjt4qul" path="res://data/collection_items/xeno_bergino.tres" id="2_k0eio"]
+[ext_resource type="PackedScene" uid="uid://c0pkwynb18bro" path="res://assets/items/xeno_bergino/xeno_bergino.glb" id="4_v2dxl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_md41v"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_21tpn"]
+
+[node name="XenoBergino" instance=ExtResource("1_m24y3")]
+collection_item_data = ExtResource("2_k0eio")
+
+[node name="CollisionShape3D" parent="DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_md41v")
+
+[node name="VisualPlaceholder" parent="." index="1"]
+visible = false
+
+[node name="xeno_bergino" parent="." index="3" instance=ExtResource("4_v2dxl")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.5497723, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_21tpn")
