@@ -85,11 +85,23 @@ func _on_scan_progressed(progress: float) -> void:
 	if progress_bar.visible:
 		progress_bar.value = progress
 
-func _on_scan_completed(item_uid: String, item_data: CollectionItemData) -> void:
-	# We now receive item_data directly in the signal!
+func _on_scan_completed(item_uid: String) -> void:
+	"""
+	Signal handler for ScannerManager.scan_completed
+	
+	CORRECT SIGNATURE: Only receives item_uid (one parameter)
+	Gets item_data by calling DiscoveryManager.get_item_data() API
+	"""
 	current_target_uid = item_uid
-	current_item_data = item_data
-	current_target_name = item_data.display_name if item_data else item_uid
+	
+	# Get item data via DiscoveryManager API (not from signal!)
+	if DiscoveryManager:
+		current_item_data = DiscoveryManager.get_item_data(item_uid)
+	else:
+		current_item_data = null
+	
+	# Set display name
+	current_target_name = current_item_data.display_name if current_item_data else item_uid
 	
 	# Check if it was a new discovery
 	if DiscoveryManager:
@@ -103,9 +115,14 @@ func _on_scan_completed(item_uid: String, item_data: CollectionItemData) -> void
 				target_label.text = "NEW DISCOVERY: %s" % current_target_name
 				target_label.modulate = Color.GREEN
 			else:
-				target_label.text = "SCAN COMPLETE: %s (Tier %d/%d)" % [current_target_name, tier, times]
+				target_label.text = "SCAN COMPLETE: %s (Tier %d, Scans: %d)" % [current_target_name, tier, times]
 				target_label.modulate = Color.LIGHT_GREEN
+		else:
+			# Fallback if scan_data not found (shouldn't happen)
+			target_label.text = "SCAN COMPLETE: %s" % current_target_name
+			target_label.modulate = Color.LIGHT_GREEN
 	else:
+		# Fallback if DiscoveryManager not available
 		target_label.text = "SCAN COMPLETE: %s" % current_target_name
 		target_label.modulate = Color.LIGHT_GREEN
 	
