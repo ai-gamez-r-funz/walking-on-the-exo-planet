@@ -77,7 +77,7 @@ func _load_all_collection_items():
 	"""Load all CollectionItemData resources and organize by biome"""
 	items_by_biome.clear()
 	
-	var items_dir = "res://resources/collection_items/"
+	var items_dir = "res://data/collection_items/"
 	var dir = DirAccess.open(items_dir)
 	
 	if not dir:
