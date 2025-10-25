@@ -24,6 +24,7 @@ BiomeSpawnManager="*res://scripts/autoload/biome_spawn_manager.gd"
 ScannerManager="*res://scripts/autoload/scanner_manager.gd"
 DialogueManager="*res://scripts/autoload/dialogue_manager.gd"
 AmbientComments="*res://scripts/autoload/ambient_comments.gd"
+ScanboyFeedback="*res://scripts/autoload/scanboy_feedback.gd"
 
 [global_group]
 

@@ -79,7 +79,7 @@ signal scan_progressed(progress: float)
 
 ## Emitted when scan completes successfully
 ## Parameters: item_uid (String)
-signal scan_completed(item_uid: String, item_data: CollectionItemData)
+signal scan_completed(item_uid: String)
 
 ## Emitted when scan is interrupted before completion
 ## Parameters: item_uid (String), reason (String)
@@ -227,37 +227,15 @@ func _process_grace_period(delta: float) -> void:
 # INTERNAL STATE MANAGEMENT
 # ============================================
 
+# In scanner_manager.gd - SIMPLIFY _complete_scan():
 func _complete_scan():
 	var completed_uid = active_target_uid
 	
-	# Get the scannable object (we already have reference during scan)
-	var scannable = _get_current_scannable()
+	# Just emit the UID - listeners have the data
+	scan_completed.emit(completed_uid)
 	
-	if not scannable or not scannable.collection_item_data:
-		push_error("[ScannerManager] Cannot complete scan - no item data")
-		_clear_target()
-		return
-	
-	# Emit with BOTH uid and data
-	scan_completed.emit(completed_uid, scannable.collection_item_data)
-	
-	# ScanBoy feedback
-	var is_new = !DiscoveryManager.has_scanned(completed_uid)
-	var scanboy_message = _get_scanboy_comment(scannable.collection_item_data, is_new)
-	DialogueManager.show_message("ScanBoy", scanboy_message, 2.5)
-	
+	print("[ScannerManager] Scan completed: %s" % completed_uid)
 	_clear_target()
-
-func _get_current_scannable() -> Node3D:
-	"""Get the currently targeted scannable from the scene"""
-	var scannables = get_tree().get_nodes_in_group("scannable")
-	
-	for scannable in scannables:
-		if scannable.has_method("get_unique_id"):
-			if scannable.get_unique_id() == active_target_uid:
-				return scannable
-	
-	return null
 
 func _clear_target() -> void:
 	var lost_uid = active_target_uid

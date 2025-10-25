@@ -1,6 +1,18 @@
 # res://autoload/discovery_manager.gd
 extends Node
 
+# ====================
+# CONFIGURATION
+# ====================
+
+# SINGLE SOURCE OF TRUTH for collection items directory
+# User directive: "All data resources will be in res://data/... NOT res://resources/..."
+const COLLECTION_ITEMS_PATH = "res://data/collection_items/"
+
+# ====================
+# DISCOVERY TRACKING
+# ====================
+
 # Discovery tracking
 var scanned_items: Dictionary = {}  # Key: item_id, Value: ScanDiscoveryData
 var scanned_instances: Dictionary = {}  # Key: instance_id, Value: item_uid
@@ -182,8 +194,8 @@ func _get_biome_items(biome_name: String) -> Array[String]:
 	"""
 	var items: Array[String] = []
 	
-	# Single unified location for all collection item data
-	var collection_dir = "res://data/collection_items/"
+	# Use constant for consistent path
+	var collection_dir = COLLECTION_ITEMS_PATH
 	var dir = DirAccess.open(collection_dir)
 	
 	if not dir:
@@ -216,6 +228,35 @@ func has_scanned(item_id: String) -> bool:
 
 func get_scan_data(item_id: String) -> ScanDiscoveryData:
 	return scanned_items.get(item_id, null)
+
+
+# ============================================
+# PUBLIC API FOR ITEM DATA ACCESS
+# ============================================
+
+func get_item_data(item_uid: String) -> CollectionItemData:
+	"""
+	Public API: Get CollectionItemData for any item_uid.
+	
+	Uses internal cache for performance. If not cached, attempts to load
+	from filesystem and caches the result.
+	
+	This is the preferred way for other systems (like ScanBoyFeedback)
+	to access collection item data without managing their own loading.
+	
+	Args:
+		item_uid: Unique identifier (e.g., "flora_006", "mineral_002")
+	
+	Returns:
+		CollectionItemData resource if found, null otherwise
+	
+	Example:
+		var item = DiscoveryManager.get_item_data("flora_006")
+		if item:
+			print("Scanning: %s" % item.display_name)
+	"""
+	return _load_collection_item_data(item_uid)
+
 
 func get_discovery_stats() -> Dictionary:
 	return {
@@ -300,9 +341,9 @@ func _check_biome_unlock():
 func _load_collection_item_by_key(item_key: String) -> CollectionItemData:
 	"""Load CollectionItemData resource directly by item_key (file name)"""
 	var search_dirs = [
-		"res://data/collection_items/flora/",
-		"res://data/collection_items/minerals/",
-		"res://data/collection_items/artifacts/"
+		COLLECTION_ITEMS_PATH + "flora/",
+		COLLECTION_ITEMS_PATH + "minerals/",
+		COLLECTION_ITEMS_PATH + "artifacts/"
 	]
 	
 	for dir_path in search_dirs:
@@ -363,10 +404,11 @@ func _preload_collection_items():
 	Optional: Preload all CollectionItemData on startup.
 	Avoids filesystem scans during gameplay.
 	"""
-	var collection_dir = "res://resources/collection_items/"
+	var collection_dir = COLLECTION_ITEMS_PATH
 	var dir = DirAccess.open(collection_dir)
 	
 	if not dir:
+		push_warning("[DiscoveryManager] Could not open collection_items directory: %s" % collection_dir)
 		return
 	
 	dir.list_dir_begin()
@@ -385,17 +427,21 @@ func _preload_collection_items():
 
 func _load_collection_item_data(item_uid: String) -> CollectionItemData:
 	"""
-	Load CollectionItemData - uses cache if available, otherwise scans filesystem.
+	INTERNAL: Load CollectionItemData - uses cache if available, otherwise scans filesystem.
+	External systems should use get_item_data() instead.
 	"""
 	# Check cache first
 	if _item_data_cache.has(item_uid):
 		return _item_data_cache[item_uid]
 	
-	# Fallback: scan filesystem
-	var collection_dir = "res://resources/collection_items/"
+	# Fallback: scan filesystem (this is slow, prefer cache)
+	push_warning("[DiscoveryManager] Item not in cache, scanning filesystem: %s" % item_uid)
+	
+	var collection_dir = COLLECTION_ITEMS_PATH
 	var dir = DirAccess.open(collection_dir)
 	
 	if not dir:
+		push_error("[DiscoveryManager] Could not open collection directory: %s" % collection_dir)
 		return null
 	
 	dir.list_dir_begin()
@@ -408,9 +454,11 @@ func _load_collection_item_data(item_uid: String) -> CollectionItemData:
 				# Cache it for next time
 				_item_data_cache[item_uid] = item_data
 				dir.list_dir_end()
+				print("[DiscoveryManager] ✓ Loaded and cached item: %s" % item_uid)
 				return item_data
 		
 		file_name = dir.get_next()
 	
 	dir.list_dir_end()
+	push_error("[DiscoveryManager] ❌ Item not found in filesystem: %s" % item_uid)
 	return null
