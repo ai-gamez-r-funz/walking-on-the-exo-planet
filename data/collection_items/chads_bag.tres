@@ -11,6 +11,7 @@ display_name = "Chad's Bag"
 scientific_name = "sacerium saccius"
 icon = ExtResource("1_lgk5l")
 category = 2
+rarity = 1
 description = "Contains the fossilized remnants of Chad's dirty socks.  Approach with caution."
 discovery_hint = "Engaging nasal protection protocols"
 scan_time = 1.5

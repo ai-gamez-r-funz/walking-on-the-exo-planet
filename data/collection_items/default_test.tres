@@ -17,6 +17,7 @@ display_name = "Tutorial Sphere"
 scientific_name = "postulexia pertentio"
 icon = SubResource("GradientTexture2D_15jf5")
 category = 3
+rarity = 3
 description = "Fun fact: These spheres are manufactured on Earth and shipped to every colony. This one has traveled 47 light-years to help you press a button."
 discovery_hint = "Scanning protocols initiated"
 scan_time = 3.5

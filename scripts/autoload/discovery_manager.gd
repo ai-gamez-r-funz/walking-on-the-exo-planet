@@ -3,6 +3,8 @@ extends Node
 
 # Discovery tracking
 var scanned_items: Dictionary = {}  # Key: item_id, Value: ScanDiscoveryData
+var scanned_instances: Dictionary = {}  # Key: instance_id, Value: item_uid
+
 var total_scans: int = 0
 
 # ADD: Cache for loaded item data
@@ -70,32 +72,40 @@ signal biome_unlocked(biome_name: String)
 signal progression_milestone(milestone_name: String, progress: Dictionary)
 
 func _ready():
-	# Connect to ScannerManager to receive scan completions
-	ScannerManager.scan_completed.connect(_on_scanner_completed)
-	
-	print("[DiscoveryManager] Initialized and connected to ScannerManager")
 	# Preload all collection item data on startup (optional optimization)
 	_preload_collection_items()
 	
 
-# SIMPLIFIED: record_scan now just uses the data we already have
-func record_scan(item_uid: String, item_data: CollectionItemData) -> bool:
+# UPDATED: Now tracks individual instances + item types
+func record_scan(scannable_instance: Node, item_uid: String, item_data: CollectionItemData) -> bool:
 	"""
 	Record a scan and update tier progression.
-	item_data is passed directly from the scannable object via signal.
-	No filesystem searching needed!
-	"""
-	var is_new = not scanned_items.has(item_uid)
+	Tracks both individual instances (to prevent re-scans) and item type progress.
 	
-	if is_new:
-		# First scan - create new entry
+	Returns true if this is a NEW instance scan (even if item type was scanned before).
+	"""
+	var instance_id = scannable_instance.get_instance_id()
+	
+	# Check if this specific instance was already scanned
+	if scanned_instances.has(instance_id):
+		print("[DiscoveryManager] Instance already scanned: %s (ignoring)" % item_data.display_name)
+		return false  # Not a new scan
+	
+	# Record this instance as scanned
+	scanned_instances[instance_id] = item_uid
+	
+	# Track if this is the first time we've seen this item TYPE
+	var is_new_item_type = not scanned_items.has(item_uid)
+	
+	if is_new_item_type:
+		# First scan of this item type - create new entry
 		scanned_items[item_uid] = ScanDiscoveryData.new()
 		scanned_items[item_uid].item_id = item_uid
 		scanned_items[item_uid].first_scan_time = Time.get_unix_time_from_system()
 		scanned_items[item_uid].times_scanned = 1
 		scanned_items[item_uid].scan_tier = 1
 	else:
-		# Additional scan - increment count
+		# Additional scan of this item type - increment count
 		scanned_items[item_uid].times_scanned += 1
 		
 		# Update tier based on rarity-adjusted thresholds
@@ -105,7 +115,7 @@ func record_scan(item_uid: String, item_data: CollectionItemData) -> bool:
 	total_scans += 1
 	
 	# Emit signals
-	scan_recorded.emit(item_uid, is_new)
+	scan_recorded.emit(item_uid, is_new_item_type)
 	collection_updated.emit()
 	
 	# Check if this scan unlocked a biome
@@ -113,14 +123,14 @@ func record_scan(item_uid: String, item_data: CollectionItemData) -> bool:
 	
 	var tier = scanned_items[item_uid].scan_tier
 	var times = scanned_items[item_uid].times_scanned
-	print("[DiscoveryManager] Scan recorded: %s (Tier %d, Scans: %d/%d)" % [
+	print("[DiscoveryManager] Scan recorded: %s (Tier %d, Instance Scans: %d/%d)" % [
 		item_data.display_name,
 		tier,
 		times,
 		item_data.get_scans_for_tier(3)
 	])
 	
-	return is_new
+	return true  # New instance scan
 
 # ADD: Check biome progression
 func check_biome_progression(biome_name: String) -> Dictionary:
@@ -248,21 +258,6 @@ func load_from_dict(data: Dictionary):
 	
 	print("[DiscoveryManager] Loaded %d discoveries" % scanned_items.size())
 	collection_updated.emit()
-
-func _on_scanner_completed(item_uid: String, item_data: CollectionItemData):
-	"""Handle scan completion from scanner"""
-	if not item_data or not item_data.is_valid():
-		push_error("[DiscoveryManager] Invalid item data received for: %s" % item_uid)
-		return
-	
-	var is_new = record_scan(item_uid, item_data)
-	
-	# Additional feedback based on discovery
-	if is_new:
-		print("[DiscoveryManager] 🆕 New discovery: %s (%s)" % [
-			item_data.display_name,
-			item_uid
-		])
 
 # ADD: Check if biome should unlock
 func _check_biome_unlock():

@@ -11,7 +11,6 @@ display_name = "Crystallized Nugget"
 scientific_name = "Clusteris crystalloides minoris"
 icon = ExtResource("1_xiwxc")
 category = 2
-rarity = 1
 description = "“Small crystal group displaying impressive team spirit.”"
 discovery_hint = "Crystalline growth, typically unstable under scanner beams."
 scan_time = 2.5

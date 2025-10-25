@@ -505,10 +505,9 @@ func check_chunks(player_pos: Vector3) -> void:
 		generated_chunks.erase(coords)
 
 func _exit_tree() -> void:
-	if noise:
-		noise.free()
-	if detail_noise:
-		detail_noise.free()
+	# FastNoiseLite is RefCounted - don't manually free
+	noise = null
+	detail_noise = null
 		
 	for chunk in generated_chunks.values():
 		if is_instance_valid(chunk) and chunk.is_inside_tree():

@@ -130,7 +130,10 @@ func generate_chunk_items(biome_name: String) -> Array[CollectionItemData]:
 		push_warning("[BiomeSpawnManager] No items available for biome: %s" % biome_name)
 		return []
 	
-	var available_items = items_by_biome[biome_name]
+	# FIX: Cast to typed array to satisfy Godot's type checker
+	var available_items: Array[CollectionItemData] = []
+	for item in items_by_biome[biome_name]:
+		available_items.append(item)
 	
 	if available_items.is_empty():
 		push_warning("[BiomeSpawnManager] Biome '%s' has no items" % biome_name)

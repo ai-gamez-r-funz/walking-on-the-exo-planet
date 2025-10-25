@@ -12,7 +12,7 @@ emission_energy_multiplier = 2.0
 material = SubResource("StandardMaterial3D_g7kqd")
 top_radius = 2.0
 bottom_radius = 2.0
-height = 0.1
+height = 0.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6v6di"]
 render_priority = 0
@@ -25,7 +25,7 @@ shader_parameter/line_thickness = 0.02
 material = SubResource("ShaderMaterial_6v6di")
 top_radius = 1.8
 bottom_radius = 1.8
-height = 6.0
+height = 3.0
 rings = 24
 
 [sub_resource type="Curve" id="Curve_2hbde"]

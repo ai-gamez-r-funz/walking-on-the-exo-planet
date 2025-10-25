@@ -10,6 +10,7 @@ item_key = "chads_lunch"
 display_name = "Chad's Lunch"
 scientific_name = "comessatio chaddius"
 icon = ExtResource("1_6lqxn")
+rarity = 2
 description = "The unidentified mushrooms growing on this burger are not 'extra toppings'."
 discovery_hint = "This meal isn't so happy anymore"
 scan_time = 1.5

@@ -161,15 +161,26 @@ func _on_scanner_scan_progressed(progress: float) -> void:
 	if visual_feedback:
 		visual_feedback.update_scan_progress(progress)
 
-func _on_scanner_scan_completed(item_uid: String, _coll_data) -> void:
+func _on_scanner_scan_completed(item_uid: String):
+	"""Handle scan completion - update visuals and report to DiscoveryManager"""
 	if item_uid != get_unique_id():
-		return
+		return  # Not for us
 	
-	# Reload scan history from DiscoveryManager (single source of truth)
-	_load_scan_history()
-	
+	# Visual feedback
 	if visual_feedback:
 		visual_feedback.show_completed()
+	
+	# NEW: Report this instance scan directly to DiscoveryManager
+	if DiscoveryManager and collection_item_data:
+		var is_new = DiscoveryManager.record_scan(self, item_uid, collection_item_data)
+		
+		if is_new:
+			print("[ScannableObject] ✅ Instance scan recorded: %s" % collection_item_data.display_name)
+	else:
+		push_warning("[ScannableObject] Cannot record scan - missing DiscoveryManager or item_data")
+	
+	# Reload scan history to get updated tier
+	_load_scan_history()
 
 func _on_scanner_scan_interrupted(item_uid: String, _reason: String) -> void:
 	if item_uid != get_unique_id():
