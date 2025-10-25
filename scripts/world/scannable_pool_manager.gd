@@ -1,5 +1,5 @@
 # res://scripts/world/scannable_pool_manager.gd
-# FIXED: Removed scene_path hallucination
+# UPDATED: Added get_scene_for_item() method for loot table integration
 # Manages which scannable objects can spawn and where
 
 class_name ScannablePoolManager
@@ -9,6 +9,9 @@ extends Node
 var flora_pool: Array[PackedScene] = []
 var mineral_pool: Array[PackedScene] = []
 var artifact_pool: Array[PackedScene] = []
+
+# Mapping from item_uid to scene path
+var uid_to_scene_map: Dictionary = {}
 
 # Biome-specific spawn weights (for future Phase 4)
 var biome_preferences: Dictionary = {}
@@ -23,19 +26,21 @@ func _ready():
 		current_biome = world_state.get("current_biome") if "current_biome" in world_state else "starter"
 	
 	_initialize_pools()
+	_build_uid_to_scene_map()
 	print("[ScannablePoolManager] Initialized with biome: %s" % current_biome)
 
 func _on_biome_changed(new_biome: String):
 	current_biome = new_biome
 	print("[ScannablePoolManager] Biome changed to: %s - reinitializing pools" % new_biome)
 	_initialize_pools()
+	_build_uid_to_scene_map()
 
 func _initialize_pools():
 	flora_pool.clear()
 	mineral_pool.clear()
 	artifact_pool.clear()
 	
-	# FIXED: Load scenes directly from resources/scannables directory
+	# Load scenes directly from resources/scannables directory
 	# The scenes themselves have CollectionItemData attached
 	_load_scenes_from_directory("res://scenes/scannables/flora/", flora_pool)
 	_load_scenes_from_directory("res://scenes/scannables/minerals/", mineral_pool)
@@ -71,15 +76,52 @@ func _load_scenes_from_directory(path: String, target_pool: Array[PackedScene]) 
 	
 	dir.list_dir_end()
 
-# ADD: Helper to get item_key from scene for debugging
-func _get_item_key_from_scene(scene: PackedScene) -> String:
-	"""Extract item_key from scene path (e.g., 'basic_plant.tscn' -> 'basic_plant')"""
-	if not scene:
-		return ""
+# NEW METHOD: Build mapping from item_uid to scene path
+func _build_uid_to_scene_map():
+	"""Build a lookup table from item_uid to PackedScene"""
+	uid_to_scene_map.clear()
 	
-	var scene_path = scene.resource_path
-	var file_name = scene_path.get_file()  # Gets "basic_plant.tscn"
-	return file_name.get_basename()  # Gets "basic_plant"
+	# Scan all pools and extract item_uid from each scene
+	var all_scenes: Array[PackedScene] = []
+	all_scenes.append_array(flora_pool)
+	all_scenes.append_array(mineral_pool)
+	all_scenes.append_array(artifact_pool)
+	
+	for scene in all_scenes:
+		# Instantiate temporarily to read the CollectionItemData
+		var temp_instance = scene.instantiate()
+		
+		# Check if it has the collection_item_data property
+		if "collection_item_data" in temp_instance:
+			var item_data = temp_instance.collection_item_data as CollectionItemData
+			if item_data and item_data.item_uid != "":
+				uid_to_scene_map[item_data.item_uid] = scene
+		
+		# Clean up temporary instance
+		temp_instance.queue_free()
+	
+	print("[ScannablePoolManager] Built UID map with %d entries" % uid_to_scene_map.size())
+
+# NEW METHOD: Get scene for a specific CollectionItemData
+func get_scene_for_item(item_data: CollectionItemData) -> PackedScene:
+	"""
+	Get the PackedScene for a specific CollectionItemData.
+	Used by BiomeSpawnManager loot table system.
+	"""
+	if not item_data:
+		push_error("[ScannablePoolManager] get_scene_for_item called with null item_data")
+		return null
+	
+	var item_uid = item_data.item_uid
+	
+	if uid_to_scene_map.has(item_uid):
+		return uid_to_scene_map[item_uid]
+	else:
+		push_error("[ScannablePoolManager] No scene found for item_uid: %s (%s)" % [
+			item_uid,
+			item_data.display_name
+		])
+		return null
 
 # Get a random scannable object appropriate for the given location
 # For Phase 1: Just random selection

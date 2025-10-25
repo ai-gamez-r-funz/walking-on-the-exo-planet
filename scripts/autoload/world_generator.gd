@@ -399,64 +399,88 @@ func get_height_at_point(world_pos: Vector3) -> float:
 	
 	return remapped
 
-# UPDATED: Improved scannable object spawning using pool manager
+# UPDATED: Improved scannable object spawning using BiomeSpawnManager loot table
 func spawn_scannable_objects(chunk: Node3D, chunk_coords: Vector2i) -> void:
-	# Get spawn configuration from pool manager
+	# Get current biome from WorldState
+	var current_biome = "starter"  # Default fallback
+	if WorldState:
+		current_biome = WorldState.get_current_biome()
+	
+	# Get specific items to spawn from loot table system
+	var items_to_spawn = BiomeSpawnManager.generate_chunk_items(current_biome)
+	
+	if items_to_spawn.is_empty():
+		push_warning("[WorldGenerator] No items to spawn in chunk %s (biome: %s)" % [
+			chunk_coords,
+			current_biome
+		])
+		return
+	
+	# Get spawn configuration
 	var spawn_config = scannable_pool.get_spawn_density()
 	
-	var num_objects := randi_range(
-		spawn_config.per_chunk.min,
-		spawn_config.per_chunk.max
-	)
-	
 	var placed_positions: Array[Vector3] = []
-	var attempts := 0
-	var max_attempts := num_objects * 4
+	var successfully_placed = 0
 	
-	while placed_positions.size() < num_objects and attempts < max_attempts:
-		var pos := Vector3(
-			randf_range(0, CHUNK_SIZE),
-			0.0,
-			randf_range(0, CHUNK_SIZE)
-		)
+	# Try to place each item from the loot table
+	for item_data in items_to_spawn:
+		var attempts := 0
+		var max_attempts := 10  # Try 10 times to find valid position for each item
+		var placed := false
 		
-		# Check minimum spacing
-		var valid_position := true
-		for placed in placed_positions:
-			if pos.distance_to(placed) < spawn_config.min_spacing:
-				valid_position = false
-				break
-		
-		if valid_position:
-			var world_pos := pos + Vector3(
-				chunk_coords.x * CHUNK_SIZE,
+		while not placed and attempts < max_attempts:
+			var pos := Vector3(
+				randf_range(0, CHUNK_SIZE),
 				0.0,
-				chunk_coords.y * CHUNK_SIZE
+				randf_range(0, CHUNK_SIZE)
 			)
 			
-			# Set Y position based on terrain height
-			var terrain_height = get_height_at_point(world_pos)
-			pos.y = terrain_height + spawn_config.height_offset
+			# Check minimum spacing
+			var valid_position := true
+			for placed_pos in placed_positions:
+				if pos.distance_to(placed_pos) < spawn_config.min_spacing:
+					valid_position = false
+					break
 			
-			# Get appropriate scannable from pool manager
-			var object_scene = scannable_pool.get_scannable_for_location(world_pos, terrain_height)
+			if valid_position:
+				var world_pos := pos + Vector3(
+					chunk_coords.x * CHUNK_SIZE,
+					0.0,
+					chunk_coords.y * CHUNK_SIZE
+				)
+				
+				# Set Y position based on terrain height
+				var terrain_height = get_height_at_point(world_pos)
+				pos.y = terrain_height + spawn_config.height_offset
+				
+				# Get scene for this specific item
+				var object_scene = scannable_pool.get_scene_for_item(item_data)
+				
+				if object_scene:
+					var object = object_scene.instantiate()
+					object.position = pos
+					chunk.add_child(object)
+					placed_positions.append(pos)
+					successfully_placed += 1
+					placed = true
+				else:
+					push_warning("[WorldGenerator] Failed to get scene for item: %s" % item_data.display_name)
+					break  # Don't retry if scene not found
 			
-			if object_scene:
-				var object = object_scene.instantiate()
-				object.position = pos
-				chunk.add_child(object)
-				placed_positions.append(pos)
-			else:
-				push_warning("WorldGenerator: Failed to get scannable scene for position %s" % world_pos)
+			attempts += 1
 		
-		attempts += 1
+		if not placed:
+			push_warning("[WorldGenerator] Failed to place item '%s' after %d attempts" % [
+				item_data.display_name,
+				max_attempts
+			])
 	
-	if placed_positions.size() < num_objects:
-		print("WorldGenerator: Only placed %d/%d objects in chunk %s" % [
-			placed_positions.size(),
-			num_objects,
-			chunk_coords
-		])
+	print("[WorldGenerator] Placed %d/%d items in chunk %s (biome: %s)" % [
+		successfully_placed,
+		items_to_spawn.size(),
+		chunk_coords,
+		current_biome
+	])
 
 func check_chunks(player_pos: Vector3) -> void:
 	current_chunk = get_chunk_coords(player_pos)
